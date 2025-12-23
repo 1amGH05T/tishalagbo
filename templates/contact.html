@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - Nawa{% endblock %}
+
+{% block content %}
+<div class="bg-brand-dark py-16">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-4">Get in Touch</h1>
+        <p class="text-brand-accent/80 text-lg">We'd love to hear from you.</p>
+    </div>
+</div>
+
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+
+            <!-- Contact Info -->
+            <div class="bg-brand text-cream p-12 md:w-2/5 flex flex-col justify-between">
+                <div>
+                    <h3 class="font-heading text-2xl font-bold mb-6">Contact Information</h3>
+                    <p class="text-brand-accent/90 mb-10 leading-relaxed">
+                        Have a question about our products or your order? Fill out the form or reach us via:
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">📍</span>
+                            <div>
+                                <h4 class="font-bold text-white">Visit Us</h4>
+                                <p class="text-brand-accent/80 text-sm">123 Nature Way, Green Valley, CA 90210</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">📧</span>
+                            <div>
+                                <h4 class="font-bold text-white">Email Us</h4>
+                                <p class="text-brand-accent/80 text-sm">hello@nawa.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl">📞</span>
+                            <div>
+                                <h4 class="font-bold text-white">Call Us</h4>
+                                <p class="text-brand-accent/80 text-sm">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12">
+                    <h4 class="font-bold text-white mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-brand-accent hover:text-white transition text-xl">Instagram</a>
+                        <a href="#" class="text-brand-accent hover:text-white transition text-xl">Facebook</a>
+                        <a href="#" class="text-brand-accent hover:text-white transition text-xl">Twitter</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="p-12 md:w-3/5">
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                        <input type="text" name="name" class="input-field" placeholder="John Doe" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input type="email" name="email" class="input-field" placeholder="john@example.com" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                        <textarea name="message" rows="5" class="input-field" placeholder="How can we help you?"
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary w-full md:w-auto">Send Message</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.title }} - Nawa{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-12 md:py-20">
+    <div class="container mx-auto px-6">
+
+        <!-- Breadcrumb -->
+        <nav class="flex mb-8 text-sm text-gray-500">
+            <a href="{% url 'home' %}" class="hover:text-brand">Home</a>
+            <span class="mx-2">/</span>
+            <a href="{% url 'products' %}" class="hover:text-brand">Shop</a>
+            <span class="mx-2">/</span>
+            <span class="text-brand-dark font-medium">{{ product.title }}</span>
+        </nav>
+
+        <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+
+                <!-- Product Image Gallery -->
+                <div class="w-full md:w-1/2 bg-gray-100 relative min-h-[500px]">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" class="w-full h-full object-cover">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-gray-400">
+                        <span class="text-2xl">No Image Available</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Product Details -->
+                <div class="w-full md:w-1/2 p-8 md:p-14 lg:p-20 flex flex-col justify-center">
+                    <span class="text-brand-light font-bold tracking-widest uppercase text-xs mb-4">{{
+                        product.category.name }}</span>
+                    <h1 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-6 leading-tight">{{
+                        product.title }}</h1>
+
+                    <!-- Price placeholder since not in model -->
+                    <div class="text-2xl font-bold text-gray-800 mb-8">$24.99</div>
+
+                    <div class="prose text-gray-600 mb-10 leading-relaxed">
+                        {{ product.content|linebreaks }}
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Quantity and Add to Cart -->
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <div
+                                class="flex items-center border border-gray-300 rounded-lg w-32 justify-between px-3 h-12">
+                                <button class="text-gray-400 hover:text-brand text-xl">-</button>
+                                <span class="font-bold text-gray-800">1</span>
+                                <button class="text-gray-400 hover:text-brand text-xl">+</button>
+                            </div>
+                            <button class="flex-grow btn-primary h-12 flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                </svg>
+                                Add to Cart
+                            </button>
+                        </div>
+
+                        <!-- Enquiry Button -->
+                        <a href="{% url 'contact' %}" class="block w-full text-center btn-secondary">
+                            Enquire About Bulk Order
+                        </a>
+                    </div>
+
+                    <!-- Additional Info -->
+                    <div class="mt-12 pt-8 border-t border-gray-100 space-y-4">
+                        <div class="flex items-center gap-3 text-sm text-gray-500">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>In stock and ready to ship</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-gray-500">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                            </svg>
+                            <span>Free shipping on orders over $100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

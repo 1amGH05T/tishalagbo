@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - Nawa{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="bg-brand-dark py-20">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-4">Our Story</h1>
+        <p class="text-brand-accent/80 text-lg max-w-2xl mx-auto">Cultivating wellness through nature's purest gifts.
+        </p>
+    </div>
+</div>
+
+<!-- Mission Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1540638349517-3abd5afc5847?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="Spices" class="rounded-2xl shadow-xl w-full">
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-brand-light rounded-full z-[-1]"></div>
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-brand rounded-full z-[-1] opacity-20"></div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2">
+                <h2 class="font-heading text-3xl font-bold text-brand-dark mb-6">Rooted in Tradition</h2>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Nawa was born from a desire to reconnect with the earth. We believe that true wellness comes from
+                    simple, natural ingredients that have been used for centuries.
+                </p>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    We partner with small-scale farmers who practice sustainable agriculture. This ensures that every
+                    spice, oil, and herb you receive is not only potent but also ethically sourced.
+                </p>
+
+                <div class="grid grid-cols-2 gap-6 mt-8">
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-lg mb-1">100%</h4>
+                        <p class="text-sm text-gray-500">Organic Certified</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-lg mb-1">50+</h4>
+                        <p class="text-sm text-gray-500">Partner Farmers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Grid -->
+<section class="py-20 bg-cream">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="font-heading text-3xl font-bold text-brand-dark mb-16">Why Choose Nawa?</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="bg-white p-8 rounded-xl shadow-sm border-t-4 border-brand">
+                <h3 class="font-heading text-xl font-bold mb-4">Purity First</h3>
+                <p class="text-gray-600 text-sm">No fillers, no additives. Just the raw, powerful ingredient as nature
+                    intended.</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-sm border-t-4 border-brand-light">
+                <h3 class="font-heading text-xl font-bold mb-4">Ethical Sourcing</h3>
+                <p class="text-gray-600 text-sm">We pay fair prices to our farmers and support their communities.</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-sm border-t-4 border-earth">
+                <h3 class="font-heading text-xl font-bold mb-4">Eco-Friendly</h3>
+                <p class="text-gray-600 text-sm">Our packaging is biodegradable and recyclable whenever possible.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

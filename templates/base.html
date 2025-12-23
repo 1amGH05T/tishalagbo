@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Nawa - Natural Products{% endblock %}</title>
+    <meta name="description"
+        content="{% block description %}Discover nature's finest spices, essential oils, and organic products.{% endblock %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1a472a', // Deep Green
+                            DEFAULT: '#2d6a4f', // Forest Green
+                            light: '#52b788', // Sage
+                            accent: '#d8f3dc', // Mint
+                        },
+                        earth: {
+                            dark: '#5c4033', // Dark Brown
+                            DEFAULT: '#9c6644', // Brown
+                            light: '#d4a373', // Tan
+                        },
+                        cream: '#fefae0', // Off-white background
+                    },
+                    fontFamily: {
+                        heading: ['"Playfair Display"', 'serif'],
+                        subheading: ['"Cormorant"', 'serif'],
+                        body: ['"Inter"', 'sans-serif'],
+                        alt: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .input-field {
+                @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-light focus:border-transparent transition duration-200 bg-white/80 backdrop-blur-sm;
+            }
+            .btn-primary {
+                @apply bg-brand text-white px-8 py-3 rounded-full hover:bg-brand-dark transition duration-300 shadow-md hover:shadow-lg font-medium tracking-wide uppercase text-sm;
+            }
+            .btn-secondary {
+                @apply bg-transparent border-2 border-brand text-brand px-8 py-3 rounded-full hover:bg-brand hover:text-white transition duration-300 font-medium tracking-wide uppercase text-sm;
+            }
+            .nav-link {
+                @apply text-gray-700 hover:text-brand transition duration-200 font-medium relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-brand after:transition-all after:duration-300 hover:after:w-full;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-cream font-body text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="{% url 'home' %}"
+                    class="font-heading text-3xl font-bold text-brand-dark flex items-center gap-2">
+                    <span class="text-4xl">🌿</span> Nawa
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                    <a href="{% url 'products' %}" class="nav-link">Shop</a>
+                    <a href="{% url 'about' %}" class="nav-link">About</a>
+                    <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+                    <a href="{% url 'faq' %}" class="nav-link">FAQ</a>
+                </div>
+
+                <!-- Auth Buttons -->
+                <div class="hidden md:flex items-center space-x-4">
+                    {% if user.is_authenticated %}
+                    <span class="text-sm text-gray-600">Hi, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}" class="text-sm text-red-500 hover:text-red-700 font-medium">Logout</a>
+                    {% else %}
+                    <a href="{% url 'login' %}"
+                        class="text-brand hover:text-brand-dark font-medium transition">Login</a>
+                    <a href="{% url 'create_user' %}"
+                        class="bg-brand text-white px-5 py-2 rounded-full hover:bg-brand-dark transition shadow-md hover:shadow-lg text-sm font-medium">Sign
+                        Up</a>
+                    {% endif %}
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-brand-dark focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 top-full shadow-lg">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="{% url 'home' %}" class="text-gray-700 hover:text-brand font-medium">Home</a>
+                <a href="{% url 'products' %}" class="text-gray-700 hover:text-brand font-medium">Shop</a>
+                <a href="{% url 'about' %}" class="text-gray-700 hover:text-brand font-medium">About</a>
+                <a href="{% url 'contact' %}" class="text-gray-700 hover:text-brand font-medium">Contact</a>
+                <a href="{% url 'faq' %}" class="text-gray-700 hover:text-brand font-medium">FAQ</a>
+                <div class="h-px bg-gray-100 my-2"></div>
+                {% if user.is_authenticated %}
+                <span class="text-sm text-gray-600">Hi, {{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="text-red-500 font-medium">Logout</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="text-brand font-medium">Login</a>
+                <a href="{% url 'create_user' %}" class="text-brand font-medium">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-cream pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="space-y-4">
+                    <h3 class="font-heading text-2xl font-bold flex items-center gap-2">
+                        <span>🌿</span> Nawa
+                    </h3>
+                    <p class="text-brand-accent/80 leading-relaxed text-sm">
+                        Bringing you the finest natural products from around the world. Authentic spices, pure essential
+                        oils, and organic treasures for your home.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-heading text-lg font-semibold mb-6 text-white">Shop</h4>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li><a href="{% url 'products' %}" class="hover:text-white transition">All Products</a></li>
+                        <li><a href="#" class="hover:text-white transition">Spices</a></li>
+                        <li><a href="#" class="hover:text-white transition">Essential Oils</a></li>
+                        <li><a href="#" class="hover:text-white transition">Organic Herbs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-heading text-lg font-semibold mb-6 text-white">Support</h4>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li><a href="{% url 'contact' %}" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="{% url 'faq' %}" class="hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white transition">Shipping Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Returns</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-heading text-lg font-semibold mb-6 text-white">Stay Connected</h4>
+                    <form class="space-y-4">
+                        <input type="email" placeholder="Your email address"
+                            class="w-full px-4 py-2 rounded bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-brand-light text-sm">
+                        <button type="submit"
+                            class="w-full bg-brand-light text-brand-dark font-bold py-2 rounded hover:bg-white transition text-sm">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-brand-accent/60">
+                <p>&copy; 2024 Nawa Natural Products. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

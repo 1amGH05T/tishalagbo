@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQ - Nawa{% endblock %}
+
+{% block content %}
+<div class="bg-cream py-16">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Frequently Asked Questions</h1>
+        <p class="text-gray-600 text-lg">Find answers to common questions about our products and services.</p>
+    </div>
+</div>
+
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6 max-w-4xl">
+
+        {% if faq %}
+        <div class="space-y-6">
+            {% for item in faq %}
+            <div class="border border-gray-200 rounded-xl p-6 hover:shadow-md transition duration-300">
+                <h3 class="font-heading text-xl font-bold text-brand-dark mb-3 flex items-start gap-3">
+                    <span class="text-brand">Q:</span> {{ item.question }}
+                </h3>
+                <div class="pl-8 text-gray-600 leading-relaxed">
+                    <span class="font-bold text-gray-400 mr-2 text-sm uppercase tracking-wide">Ans:</span>
+                    {{ item.answer }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-12 text-gray-500">
+            <p>No FAQs available at the moment.</p>
+        </div>
+        {% endif %}
+
+        <div class="mt-16 text-center bg-brand-accent/20 rounded-2xl p-8">
+            <h3 class="font-bold text-xl text-brand-dark mb-2">Still have questions?</h3>
+            <p class="text-gray-600 mb-6">Can't find the answer you're looking for? Please chat to our friendly team.
+            </p>
+            <a href="{% url 'contact' %}" class="btn-primary">Get in Touch</a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

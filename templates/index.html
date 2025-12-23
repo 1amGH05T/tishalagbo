@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Nawa Natural Products{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-brand-dark overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+        <img src="https://images.unsplash.com/photo-1596434444521-1b642646c243?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+            alt="Background" class="w-full h-full object-cover">
+    </div>
+    <div class="container mx-auto px-6 py-24 md:py-32 relative z-10">
+        <div class="max-w-2xl text-white">
+            <h1 class="font-heading text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                Pure Nature, <br>
+                <span class="text-brand-light">Delivered to You.</span>
+            </h1>
+            <p class="text-lg md:text-xl mb-10 text-gray-200 leading-relaxed font-light">
+                Discover our curated collection of organic spices, premium essential oils, and natural wellness products
+                sourced from the finest growers.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="{% url 'products' %}" class="btn-primary text-center">Shop Now</a>
+                <a href="{% url 'about' %}"
+                    class="bg-white/10 backdrop-blur border border-white/30 text-white px-8 py-3 rounded-full hover:bg-white/20 transition duration-300 font-medium tracking-wide uppercase text-sm text-center">Learn
+                    More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="py-16 bg-cream">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+                class="bg-white p-8 rounded-2xl shadow-sm border border-brand/10 text-center hover:shadow-md transition duration-300">
+                <div
+                    class="w-16 h-16 bg-brand-accent/30 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                    🌱</div>
+                <h3 class="font-heading text-xl font-bold text-brand-dark mb-3">100% Organic</h3>
+                <p class="text-gray-600">Sourced directly from certified organic farms ensuring no harmful pesticides.
+                </p>
+            </div>
+            <div
+                class="bg-white p-8 rounded-2xl shadow-sm border border-brand/10 text-center hover:shadow-md transition duration-300">
+                <div
+                    class="w-16 h-16 bg-brand-accent/30 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                    🌍</div>
+                <h3 class="font-heading text-xl font-bold text-brand-dark mb-3">Sustainably Sourced</h3>
+                <p class="text-gray-600"> We prioritize eco-friendly packaging and fair trade practices.</p>
+            </div>
+            <div
+                class="bg-white p-8 rounded-2xl shadow-sm border border-brand/10 text-center hover:shadow-md transition duration-300">
+                <div
+                    class="w-16 h-16 bg-brand-accent/30 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                    ✨</div>
+                <h3 class="font-heading text-xl font-bold text-brand-dark mb-3">Premium Quality</h3>
+                <p class="text-gray-600">Hand-picked and tested to ensure the highest potency and freshness.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="font-heading text-4xl font-bold text-brand-dark mb-2">Featured Collection</h2>
+                <p class="text-gray-500">Our most popular picks this week.</p>
+            </div>
+            <a href="{% url 'products' %}"
+                class="hidden md:inline-flex items-center text-brand font-medium hover:text-brand-dark transition">
+                View All Products
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3">
+                    </path>
+                </svg>
+            </a>
+        </div>
+
+        {% if featured_products %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% for product in featured_products %}
+            <div class="group">
+                <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/5] bg-gray-100">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400">No Image</div>
+                    {% endif %}
+
+                    <div
+                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <a href="{% url 'detail' product.id %}"
+                            class="bg-white text-brand-dark px-6 py-2 rounded-full font-medium transform translate-y-4 group-hover:translate-y-0 transition duration-300 hover:bg-brand hover:text-white">View
+                            Details</a>
+                    </div>
+                </div>
+                <h3 class="font-heading text-xl font-bold text-gray-800 group-hover:text-brand transition">{{
+                    product.title }}</h3>
+                <p class="text-sm text-gray-500 mb-2">{{ product.category.name }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-12">
+            <p class="text-gray-500">No products available yet.</p>
+        </div>
+        {% endif %}
+
+        <div class="mt-12 text-center md:hidden">
+            <a href="{% url 'products' %}" class="btn-secondary inline-block">View All Products</a>
+        </div>
+    </div>
+</section>
+
+<!-- About Teaser -->
+<section class="py-20 bg-brand-accent/20">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1615485925763-867862f80029?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="About Us" class="rounded-2xl shadow-xl">
+            </div>
+            <div class="w-full md:w-1/2">
+                <h2 class="font-heading text-4xl font-bold text-brand-dark mb-6">Our Journey</h2>
+                <div class="w-20 h-1 bg-brand mb-8"></div>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    Nawa started with a simple belief: nature holds the key to wellness. We travel the globe to find the
+                    most authentic spices and essential oils, building relationships with farmers who care about quality
+                    and sustainability.
+                </p>
+                <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                    Everything we offer is pure, tested, and packed with care. Join us in embracing a natural lifestyle.
+                </p>
+                <a href="{% url 'about' %}"
+                    class="text-brand-dark font-bold border-b-2 border-brand-dark hover:text-brand hover:border-brand transition pb-1 text-lg">Read
+                    Our Story</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

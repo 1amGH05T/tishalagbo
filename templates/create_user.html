@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - Nawa{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center p-4">
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+
+    <div class="text-center mb-8">
+      <h2 class="font-heading text-3xl font-bold text-brand-dark mb-2">Create Account</h2>
+      <p class="text-gray-500 text-sm">Join our community of natural living enthusiasts.</p>
+    </div>
+
+    <form method="POST" class="space-y-5">
+      {% csrf_token %}
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+        <input type="text" name="username" class="input-field" placeholder="Choose a username" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+        <input type="email" name="email" class="input-field" placeholder="you@example.com" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input type="password" name="password1" class="input-field" placeholder="Create a password" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+        <input type="password" name="password2" class="input-field" placeholder="Confirm your password" required>
+      </div>
+
+      {% if messages %}
+      <div class="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <button type="submit" class="w-full btn-primary text-center block">
+        Sign Up
+      </button>
+    </form>
+
+    <div class="mt-6 text-center text-sm text-gray-600">
+      <p>Already have an account? <a href="{% url 'login' %}"
+          class="text-brand font-semibold hover:text-brand-dark hover:underline">Login</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
