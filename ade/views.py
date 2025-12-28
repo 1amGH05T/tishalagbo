@@ -19,21 +19,24 @@ def create_user(request):
             user = User.objects.create(username=username, email=email)
             user.set_password(password1)
             user.save()
-            return redirect('login_user')
+            return redirect('login')
         
     return render(request, 'create_user.html')
 
 
 def login_user(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
     if request.method =='POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(username=username, password=password)
+        user = authenticate(request, username=username, password=password)
 
         if user:
             login(request, user)
-            return redirect('index')
+            return redirect('home')
         else:
             return redirect('login_user')
         
