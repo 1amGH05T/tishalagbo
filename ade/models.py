@@ -8,7 +8,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
 
 class Contact(models.Model):
     id = models.AutoField(primary_key=True) 
@@ -38,6 +37,10 @@ class Products(models.Model):
     title = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='product_images/')
+    price = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+
+    def __str___(self):
+        return self.title

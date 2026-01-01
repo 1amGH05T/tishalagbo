@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Home - Nawa Natural Products{% endblock %}
+{% block title %}Home - Tishaalgbo Natural Products{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
 <section class="relative bg-brand-dark overflow-hidden">
     <div class="absolute inset-0 opacity-20">
-        <img src="https://images.unsplash.com/photo-1596434444521-1b642646c243?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-            alt="Background" class="w-full h-full object-cover">
+        <img src="{% static 'spices.avif' %}" alt="Background" class="w-full h-full object-cover">
     </div>
     <div class="container mx-auto px-6 py-24 md:py-32 relative z-10">
         <div class="max-w-2xl text-white">
@@ -99,7 +99,8 @@
                             Details</a>
                     </div>
                 </div>
-                <h3 class="font-heading text-xl font-bold text-gray-800 group-hover:text-brand transition">{{ product.title }}</h3>
+                <h3 class="font-heading text-xl font-bold text-gray-800 group-hover:text-brand transition">{{
+                    product.title }}</h3>
                 <p class="text-sm text-gray-500 mb-2">{{ product.category.name }}</p>
             </div>
             {% endfor %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ product.title }} - Nawa{% endblock %}
+{% block title %}{{ product.title }} - Tishaalgbo{% endblock %}
 
 {% block content %}
 <div class="bg-gray-50 py-12 md:py-20">
@@ -31,11 +31,13 @@
 
                 <!-- Product Details -->
                 <div class="w-full md:w-1/2 p-8 md:p-14 lg:p-20 flex flex-col justify-center">
-                    <span class="text-brand-light font-bold tracking-widest uppercase text-xs mb-4">{{ product.category.name }}</span>
-                    <h1 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-6 leading-tight">{{ product.title }}</h1>
+                    <span class="text-brand-light font-bold tracking-widest uppercase text-xs mb-4">{{
+                        product.category.name }}</span>
+                    <h1 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-6 leading-tight">{{
+                        product.title }}</h1>
 
                     <!-- Price placeholder since not in model -->
-                    <div class="text-2xl font-bold text-gray-800 mb-8">$24.99</div>
+                    <div class="text-2xl font-bold text-gray-800 mb-8">{{ product.price }}</div>
 
                     <div class="prose text-gray-600 mb-10 leading-relaxed">
                         {{ product.content|linebreaks }}
@@ -43,21 +45,40 @@
 
                     <div class="space-y-6">
                         <!-- Quantity and Add to Cart -->
-                        <div class="flex flex-col sm:flex-row gap-4">
+                        <form action="{% url 'add_to_cart' product.id %}" method="POST"
+                            class="flex flex-col sm:flex-row gap-4">
+                            {% csrf_token %}
                             <div
                                 class="flex items-center border border-gray-300 rounded-lg w-32 justify-between px-3 h-12">
-                                <button class="text-gray-400 hover:text-brand text-xl">-</button>
-                                <span class="font-bold text-gray-800">1</span>
-                                <button class="text-gray-400 hover:text-brand text-xl">+</button>
+                                <button type="button" onclick="decrementQty()"
+                                    class="text-gray-400 hover:text-brand text-xl">-</button>
+                                <input type="number" name="quantity" id="qtyInput" value="1" min="1"
+                                    class="w-full text-center border-none focus:ring-0 font-bold text-gray-800 p-0 appearance-none h-full bg-transparent">
+                                <button type="button" onclick="incrementQty()"
+                                    class="text-gray-400 hover:text-brand text-xl">+</button>
                             </div>
-                            <button class="flex-grow btn-primary h-12 flex items-center justify-center gap-2">
+                            <button type="submit"
+                                class="flex-grow btn-primary h-12 flex items-center justify-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                 </svg>
                                 Add to Cart
                             </button>
-                        </div>
+                        </form>
+
+                        <script>
+                            function incrementQty() {
+                                const input = document.getElementById('qtyInput');
+                                input.value = parseInt(input.value) + 1;
+                            }
+                            function decrementQty() {
+                                const input = document.getElementById('qtyInput');
+                                if (parseInt(input.value) > 1) {
+                                    input.value = parseInt(input.value) - 1;
+                                }
+                            }
+                        </script>
 
                         <!-- Enquiry Button -->
                         <a href="{% url 'contact' %}" class="block w-full text-center btn-secondary">

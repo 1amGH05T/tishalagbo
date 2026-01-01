@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+{% load cart_tags %}
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Nawa - Natural Products{% endblock %}</title>
+    <title>{% block title %}Tishaalgbo - Natural Products{% endblock %}</title>
     <meta name="description"
         content="{% block description %}Discover nature's finest spices, essential oils, and organic products.{% endblock %}">
 
@@ -72,7 +73,7 @@
                 <!-- Logo -->
                 <a href="{% url 'home' %}"
                     class="font-heading text-3xl font-bold text-brand-dark flex items-center gap-2">
-                    <span class="text-4xl">🌿</span> Nawa
+                    <span class="text-4xl">🌿</span> Tishaalagbo
                 </a>
 
                 <!-- Desktop Menu -->
@@ -86,6 +87,22 @@
 
                 <!-- Auth Buttons -->
                 <div class="hidden md:flex items-center space-x-4">
+                    <!-- Cart Icon -->
+                    <a href="{% url 'checkout' %}"
+                        class="relative group text-brand-dark hover:text-brand transition mr-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        {% with request.session.cart|cart_item_count as count %}
+                        {% if count > 0 %}
+                        <span
+                            class="absolute -top-2 -right-2 bg-brand-light text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-sm">
+                            {{ count }}
+                        </span>
+                        {% endif %}
+                        {% endwith %}
+                    </a>
                     {% if user.is_authenticated %}
                     <span class="text-sm text-gray-600">Hi, {{ user.username }}</span>
                     <a href="{% url 'logout' %}" class="text-sm text-red-500 hover:text-red-700 font-medium">Logout</a>
@@ -98,16 +115,34 @@
                     {% endif %}
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-brand-dark focus:outline-none">
-                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
             </div>
+
+            <!-- Mobile Cart & Menu Button -->
+            <div class="md:hidden flex items-center gap-4">
+                <!-- Mobile Cart Icon -->
+                <a href="{% url 'checkout' %}" class="relative text-brand-dark">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    {% with request.session.cart|cart_item_count as count %}
+                    {% if count > 0 %}
+                    <span
+                        class="absolute -top-2 -right-2 bg-brand-light text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-sm">
+                        {{ count }}
+                    </span>
+                    {% endif %}
+                    {% endwith %}
+                </a>
+
+                <button id="mobile-menu-btn" class="text-brand-dark focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
         </div>
 
         <!-- Mobile Menu -->
@@ -144,7 +179,7 @@
                 <!-- Brand -->
                 <div class="space-y-4">
                     <h3 class="font-heading text-2xl font-bold flex items-center gap-2">
-                        <span>🌿</span> Nawa
+                        <span>🌿</span> Tishaalgbo
                     </h3>
                     <p class="text-brand-accent/80 leading-relaxed text-sm">
                         Bringing you the finest natural products from around the world. Authentic spices, pure essential
