@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, FAQ, Contact, Products
+from .models import Category, FAQ, Contact, Products, Order, Store
 
 
 class ProductsAdmin(admin.ModelAdmin):
@@ -35,4 +35,17 @@ class FAQAdmin(admin.ModelAdmin):
     ordering = ('-created_at',)
 
 admin.site.register(FAQ, FAQAdmin)
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'product', 'status', 'total_price', 'created_at')
+    list_filter = ('status', 'created_at')
+    search_fields = ('user__username', 'product__title')
+
+admin.site.register(Order, OrderAdmin)
+
+class StoreAdmin(admin.ModelAdmin):
+    list_display = ('name', 'owner', 'created_at')
+    search_fields = ('name', 'owner__username')
+
+admin.site.register(Store, StoreAdmin)
     
